@@ -1,6 +1,39 @@
 <!DOCTYPE html>
 <html>
 <body>
-
+    <div id="viewDiv">
+        <button id="basemapButton">Switch map style<h4 id="basemapLabel">streets</h4></button>
+        <div id="filterDiv">
+            <h2>Filter</h2>
+    
+            <label>Congestion Level Range: </label>
+            <label for="minCongestion">Min</label>
+            <input type="text" id="minCongestion" name="minCongestion">
+            <label for="maxCongestion">Max</label>
+            <input type="text" id="maxCongestion" name="maxCongestion"><br>
+    
+            <label>Start Date Range: </label>
+            <label for="minDate">Min</label>
+            <input type="date" id="minDate" name="minDate">
+            <label for="maxDate">Max</label>
+            <input type="date" id="maxDate" name="maxDate"><br>
+    
+            <label>Start Time Range: </label>
+            <label for="minTime">Min</label>
+            <input type="time" id="minTime" name="minTime">
+            <label for="maxTime">Max</label>
+            <input type="time" id="maxTime" name="maxTime"><br>
+    
+            <label for="occupancyStatus">Occupancy Status: </label>
+            <select id="occupancyStatus" name="occupancyStatus">
+                <option value="">Select...</option>
+                <option value="1">True</option>
+                <option value="0">False</option>
+            </select><br><br>
+    
+            <button id="applyButton">Apply Filters</button>
+            <h4><br><br>Author: Lilla Guo</h4>
+        </div>
+      </div>
 </body>
 </html>
