@@ -1,5 +1,58 @@
 <!DOCTYPE html>
 <html>
+    <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+    <title>Live Transport NSW</title>
+    <!-- Custom styles for the map view and buttons -->
+    <style>
+        /* Ensure the map fills the full screen */
+        html, body, #viewDiv {
+            padding: 0;
+            margin: 0;
+            height: 100%;
+            width: 100%;
+        }
+        
+        /* Position and style the basemap switch button */
+        #basemapButton {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            z-index: 95;
+            height: 60px;
+        }
+        
+        /* Position and style the filter panel */
+        #filterDiv {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 95;
+            background-color: rgba(255,255,255,0.5);
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        /* Style the filter labels and inputs */
+        #filterDiv label, #filterDiv input {
+            margin-bottom: 10px;
+        }
+
+        /* Style the filter panel title */
+        #filterDiv h2 {
+            margin-top: 0;
+        }
+
+        /* Style the Apply Filters button */
+        #applyButton {
+            padding: 10px 20px;
+            font-size: 1.2em;
+        }
+    </style>
+
+</head>
 <body>
     <div id="viewDiv">
         <button id="basemapButton">Switch map style<h4 id="basemapLabel">streets</h4></button>
