@@ -59,6 +59,66 @@
             /* The URL of the GeoJSON data */
             const url = "https://portal.spatial.nsw.gov.au/geoserver/liveTransport/buses/FeatureServer/0/query?f=geojson";
 
+                        /* Popup template for the bus data */
+                        const template = {
+                title: "Bus Information",
+                content: [
+                    {
+                        type: "fields",
+                        fieldInfos: [
+                            {
+                                fieldName: "vehicle.trip.startTime",
+                                label: "Start Time"
+                            },
+                            {
+                                fieldName: "vehicle.trip.startDate",
+                                label: "Start Date"
+                            },
+                            {
+                                fieldName: "vehicle.position.speed",
+                                label: "Speed"
+                            },
+                            {
+                                fieldName: "vehicle.position.compass",
+                                label: "Compass"
+                            },
+                            {
+                                fieldName: "vehicle.congestionLevel",
+                                label: "Congestion Level"
+                            },
+                            {
+                                fieldName: "vehicle.occupancyStatus",
+                                label: "Occupancy Status"
+                            },
+                            {
+                                fieldName: "vehicle.position.bearing",
+                                label: "Bearing"
+                            },
+                            {
+                                fieldName: "vehicle.trip.routeId",
+                                label: "Route ID"
+                            },
+                            {
+                                fieldName: "vehicle.trip.tripId",
+                                label: "Trip ID"
+                            },
+                            {
+                                fieldName: "vehicle.vehicle.id",
+                                label: "Vehicle ID"
+                            },
+                            {
+                                fieldName: "vehicle.position.latitude",
+                                label: "Latitude"
+                            },
+                            {
+                                fieldName: "vehicle.position.longitude",
+                                label: "Longitude"
+                            },
+                        ]
+                    }
+                ]
+            };
+
 
             /* Custom marker symbol for the bus data */
             const symbol = {
