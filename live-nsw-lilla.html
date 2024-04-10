@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-    <head>
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
     <title>Live Transport NSW</title>
@@ -51,16 +51,21 @@
             font-size: 1.2em;
         }
     </style>
+
+    <!-- Import the ArcGIS API for JavaScript -->
+    <link rel="stylesheet" href="https://js.arcgis.com/4.21/esri/themes/light/main.css">
+    <script src="https://js.arcgis.com/4.21/"></script>
+
     <script>
         require([
-            "esri/Map",
+            "esri/widgets/Legend",
         ], function(Map, MapView, GeoJSONLayer, Legend) {
 
             /* The URL of the GeoJSON data */
             const url = "https://portal.spatial.nsw.gov.au/geoserver/liveTransport/buses/FeatureServer/0/query?f=geojson";
 
-                        /* Popup template for the bus data */
-                        const template = {
+            /* Popup template for the bus data */
+            const template = {
                 title: "Bus Information",
                 content: [
                     {
@@ -119,7 +124,6 @@
                 ]
             };
 
-
             /* Custom marker symbol for the bus data */
             const symbol = {
                 type: "simple-marker",
@@ -170,6 +174,63 @@
                 ]
             };
 
+            /* Create the GeoJSON layer using the data URL, renderer, and popup template */
+            const geojsonLayer = new GeoJSONLayer({
+                url: url,
+                renderer: renderer,
+                title: "Legend",
+                popupTemplate: template
+            });
+
+            /* List of basemaps and index of the current basemap */
+            const basemaps = ['streets', 'satellite', 'topo', 'terrain'];
+            let currentBasemapIndex = 0;
+
+            /* Create the map with the initial basemap and the GeoJSON layer */
+            const map = new Map({
+                basemap: basemaps[currentBasemapIndex],
+                layers: [geojsonLayer]
+            });
+
+            /* Create the map view */
+            const view = new MapView({
+                container: "viewDiv",
+                map: map,
+                center: [151.2093, -33.8688],
+                zoom: 10
+            });
+
+            /* Add the legend widget to the map view */
+            view.ui.add(
+                new Legend({
+                    view: view
+                }),
+                "bottom-right"
+            );
+
+            /* Change basemap when the basemap button is clicked */
+            document.getElementById('basemapButton').addEventListener('click', function() {
+                currentBasemapIndex = (currentBasemapIndex) % basemaps.length;
+                map.basemap = basemaps[currentBasemapIndex];
+                document.getElementById('basemapLabel').innerText = basemaps[currentBasemapIndex];
+            });
+
+            /* Format the input date string into the YYYYMMDD format */
+            function formatDate(dateInput) {
+                if (dateInput) {
+                    return `'${dateInput.split('-').join('')}'`;
+                }
+                return '';
+            }
+
+            /* Format the input time string into the HH:MM:SS format */
+            function formatTime(timeInput) {
+                if (timeInput) {
+                    return `'${timeInput}:00'`;
+                }
+                return '';
+            }
+
             /* Apply the filter when the Apply Filters button is clicked */
             document.getElementById('applyButton').addEventListener('click', function() {
                 const minCongestion = document.getElementById('minCongestion').value;
@@ -195,39 +256,39 @@
     </script>
 </head>
 <body>
-    <div id="viewDiv">
-        <button id="basemapButton">Switch map style<h4 id="basemapLabel">streets</h4></button>
-        <div id="filterDiv">
-            <h2>Filter</h2>
-    
-            <label>Congestion Level Range: </label>
-            <label for="minCongestion">Min</label>
-            <input type="text" id="minCongestion" name="minCongestion">
-            <label for="maxCongestion">Max</label>
-            <input type="text" id="maxCongestion" name="maxCongestion"><br>
-    
-            <label>Start Date Range: </label>
-            <label for="minDate">Min</label>
-            <input type="date" id="minDate" name="minDate">
-            <label for="maxDate">Max</label>
-            <input type="date" id="maxDate" name="maxDate"><br>
-    
-            <label>Start Time Range: </label>
-            <label for="minTime">Min</label>
-            <input type="time" id="minTime" name="minTime">
-            <label for="maxTime">Max</label>
-            <input type="time" id="maxTime" name="maxTime"><br>
-    
-            <label for="occupancyStatus">Occupancy Status: </label>
-            <select id="occupancyStatus" name="occupancyStatus">
-                <option value="">Select...</option>
-                <option value="1">True</option>
-                <option value="0">False</option>
-            </select><br><br>
-    
-            <button id="applyButton">Apply Filters</button>
-            <h4><br><br>Author: Lilla Guo</h4>
-        </div>
-      </div>
+  <div id="viewDiv">
+    <button id="basemapButton">Switch map style<h4 id="basemapLabel">streets</h4></button>
+    <div id="filterDiv">
+        <h2>Filter</h2>
+
+        <label>Congestion Level Range: </label>
+        <label for="minCongestion">Min</label>
+        <input type="text" id="minCongestion" name="minCongestion">
+        <label for="maxCongestion">Max</label>
+        <input type="text" id="maxCongestion" name="maxCongestion"><br>
+
+        <label>Start Date Range: </label>
+        <label for="minDate">Min</label>
+        <input type="date" id="minDate" name="minDate">
+        <label for="maxDate">Max</label>
+        <input type="date" id="maxDate" name="maxDate"><br>
+
+        <label>Start Time Range: </label>
+        <label for="minTime">Min</label>
+        <input type="time" id="minTime" name="minTime">
+        <label for="maxTime">Max</label>
+        <input type="time" id="maxTime" name="maxTime"><br>
+
+        <label for="occupancyStatus">Occupancy Status: </label>
+        <select id="occupancyStatus" name="occupancyStatus">
+            <option value="">Select...</option>
+            <option value="1">True</option>
+            <option value="0">False</option>
+        </select><br><br>
+
+        <button id="applyButton">Apply Filters</button>
+        <h4><br><br>Author: Lilla Guo</h4>
+    </div>
+  </div>
 </body>
 </html>
