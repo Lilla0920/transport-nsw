@@ -58,6 +58,9 @@
 
     <script>
         require([
+            "esri/Map",
+            "esri/views/MapView",
+            "esri/layers/GeoJSONLayer",
             "esri/widgets/Legend",
         ], function(Map, MapView, GeoJSONLayer, Legend) {
 
@@ -210,7 +213,7 @@
 
             /* Change basemap when the basemap button is clicked */
             document.getElementById('basemapButton').addEventListener('click', function() {
-                currentBasemapIndex = (currentBasemapIndex) % basemaps.length;
+                currentBasemapIndex = (currentBasemapIndex + 1) % basemaps.length;
                 map.basemap = basemaps[currentBasemapIndex];
                 document.getElementById('basemapLabel').innerText = basemaps[currentBasemapIndex];
             });
